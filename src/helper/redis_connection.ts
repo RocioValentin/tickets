@@ -1,14 +1,16 @@
 export const getRedisConfig = () => {
   // si existe REDIS_URL producción
   if (process.env.REDIS_URL) {
-    const redisUrl = new URL(process.env.REDIS_URL);
+    const redisUrl = new URL(process.env.REDIS_URL!);
 
     return {
       host: redisUrl.hostname,
       port: Number(redisUrl.port),
       username: redisUrl.username,
       password: redisUrl.password,
-      tls: {}, 
+      tls: {
+        rejectUnauthorized: false,
+      }, 
     };
   }
 
