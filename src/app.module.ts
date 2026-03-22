@@ -18,11 +18,11 @@ import { ConfirmReservationUseCase } from './application/use-cases/confirm-reser
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5440,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'tickets_db',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
     }),
