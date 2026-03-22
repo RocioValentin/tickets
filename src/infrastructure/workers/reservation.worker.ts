@@ -9,6 +9,7 @@ import { TICKET_REPOSITORY } from '../db/ticket.repository.impl';
 import { RESERVATION_REPOSITORY } from '../db/reservation.repository.impl';
 
 import { TicketStatus } from '../../domain/entities/ticket.entity';
+import { getRedisConfig } from 'src/helper/redis_connection';
 
 @Injectable()
 export class ReservationWorker implements OnModuleInit {
@@ -39,10 +40,7 @@ export class ReservationWorker implements OnModuleInit {
         console.log('Expirado correctamente');
       },
       {
-        connection: {
-          host: process.env.REDIS_HOST,
-          port: Number(process.env.REDIS_PORT),
-        },
+        connection: getRedisConfig(),
       },
     );
   }
