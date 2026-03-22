@@ -6,8 +6,8 @@ export const getRedisConfig = () => {
     return {
       host: redisUrl.hostname,
       port: Number(redisUrl.port),
-      username: redisUrl.username,
-      password: redisUrl.password,
+      ...(redisUrl.username && { username: redisUrl.username }),
+      ...(redisUrl.password && { password: redisUrl.password }),
       tls: {
         rejectUnauthorized: false,
       }, 
