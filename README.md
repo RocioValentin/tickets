@@ -213,6 +213,8 @@ uso incorrecto de Nest CLI
 
 El frontend fue desarrollado usando Lovable.
 
+<img width="1415" height="690" alt="image" src="https://github.com/user-attachments/assets/758fb03a-7a04-4254-9a0e-330b9429d646" />
+
 Repositorio:
 
 👉 https://github.com/RocioValentin/ticketsfrontend
