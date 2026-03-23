@@ -65,16 +65,16 @@ Crear un archivo .env en la raíz del proyecto:
 
 PORT=3000
 
-# Base de datos
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=tu_usuario
-DB_PASSWORD=tu_password
-DB_NAME=tickets_db
+## Base de datos
+- DB_HOST=localhost
+- DB_PORT=5432
+- DB_USER=tu_usuario
+- DB_PASSWORD=tu_password
+- DB_NAME=tickets_db
 
-# Redis
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
+## Redis
+- REDIS_HOST=127.0.0.1
+- REDIS_PORT=6379
 
 ## 2. Configuración de la base de datos
 Asegúrate de tener una base de datos corriendo.
@@ -133,13 +133,110 @@ Body:
 - Confirmar pago
 POST /reservations/:id/confirm
 
-## Ejecución de pruebas
-Pruebas unitarias:
-npm run test
-Pruebas e2e:
-npm run test:e2e
+## Despliegue
 
-## Notas importantes 
-- Se implementa control de concurrencia para evitar doble reserva. 
-- Se utiliza un worker con Redis (BullMQ) para manejar expiraciones. 
-- El sistema está preparado para escalar horizontalmente.
+Render (Producción actual)
+
+El backend está desplegado en:
+
+👉 https://tickets-e91l.onrender.com
+
+## Configuración:
+
+Servicio: Web Service (Node.js)
+
+Build command:
+```bash
+npm install && npm run build
+```
+Start command:
+
+```bash
+npm run start:dev
+```
+
+Variables de entorno configuradas en Render:
+
+- DB_HOST
+- DB_USER
+- DB_PASSWORD
+- DB_NAME
+- REDIS_URL
+
+## Base de datos (Render PostgreSQL)
+
+Instancia PostgreSQL administrada en Render
+
+Conectada mediante variables de entorno
+
+Acceso externo para herramientas como pgAdmin
+
+## Redis (Upstash)
+
+Se utiliza Upstash Redis para manejar colas con BullMQ:
+
+Conexión mediante:
+
+REDIS_URL=rediss://default:xxxxx@xxxxx.upstash.io:6379
+
+Compatible con BullMQ (no usar REST API)
+
+## 🟠 AWS (en progreso)
+
+Se realizó despliegue en:
+
+AWS Elastic Beanstalk
+
+Pasos realizados:
+
+eb init
+eb create tickets-env
+eb deploy
+
+Notas:
+
+Se requiere Procfile:
+
+web: npm run start
+
+Uso de process.env.PORT
+
+Problemas comunes:
+
+build faltante
+
+variables de entorno
+
+uso incorrecto de Nest CLI
+
+## 💻 Frontend
+
+El frontend fue desarrollado usando Lovable.
+
+Repositorio:
+
+👉 https://github.com/RocioValentin/ticketsfrontend
+
+Sitio desplegado:
+
+👉 https://tickets-frontend.lovable.app/
+
+## 🧠 Notas importantes
+
+Se implementa control de concurrencia para evitar doble reserva.
+
+Se utiliza BullMQ + Redis para manejar expiración de reservas.
+
+Arquitectura preparada para escalar horizontalmente.
+
+Uso de variables de entorno para portabilidad entre entornos.
+
+📌 Estado del proyecto
+
+✅ Backend funcional (Render)
+
+✅ Frontend integrado
+
+✅ Redis configurado (Upstash)
+
+🚧 Deploy en AWS en progreso
